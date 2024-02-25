@@ -1,0 +1,32 @@
+<form action='/api/auth/signup' method='post' id='form-{{baseClass}}'>
+  <div class='{{baseClass}}-container'>
+    <h1>SIGNUP</h1>
+    <div class='{{baseClass}}-input-component'>
+      <div class='{{baseClass}}-input-label'>First Name:</div>
+      <input class='{{baseClass}}-input-text' type='text' name='first_name' id='first_name' />
+    </div>
+    <div class='{{baseClass}}-input-component'>
+      <div class='{{baseClass}}-input-label'>Last Name:</div>
+      <input class='{{baseClass}}-input-text' type='text' name='last_name' id='last_name' />
+    </div>
+    <div class='{{baseClass}}-input-component'>
+      <div class='{{baseClass}}-input-label'>Age:</div>
+      <input class='{{baseClass}}-input-text' type='number' name='age' id='age' />
+    </div>
+    <div class='{{baseClass}}-input-component'>
+      <div class='{{baseClass}}-input-label'>Email:</div>
+      <input class='{{baseClass}}-input-text' type='email' name='email' id='email' />
+    </div>
+    <div class='{{baseClass}}-input-component'>
+      <div class='{{baseClass}}-input-label'>Password:</div>
+      <input class='{{baseClass}}-input-text' type='password' name='password' id='password' />
+    </div>
+    <div class='{{baseClass}}-btn-component'>
+      <button type='submit'>Sign Up</button>
+    </div>
+  </div>
+</form>
+
+<a href='/login'>Already have an account?</a>
+<button><a href='/api/auth/auth/github'>GITHUB</a></button>
+<button><a href='/api/auth/auth/google'>GOOGLE</a></button>
