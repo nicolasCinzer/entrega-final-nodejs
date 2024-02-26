@@ -1,0 +1,31 @@
+.visual-component.divider {
+  position: relative;
+  width: 100%;
+}
+
+.visual-component.middle-line {
+  position: absolute;
+  display: flex;
+  inset: 0;
+  align-items: center;
+}
+
+.visual-component.line {
+  width: 100%;
+  border: 0 solid var(--foreground-color);
+  border-top-width: 1px;
+}
+
+.visual-component.text-box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.visual-component.text {
+  background-color: var(--primary-color);
+  color: var(--foreground-color);
+  padding: 0 0.5rem;
+}

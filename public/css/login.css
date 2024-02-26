@@ -1,0 +1,161 @@
+@import './styles.css';
+
+.login-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+}
+
+.login-main-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--constrast-color);
+  border: 1px solid var(--details-color);
+}
+
+.login-container {
+  border: 1px solid var(--details-color);
+  padding: 2rem 2rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  width: 50%;
+}
+
+.login-container > form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-input-component {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.login-input-label {
+  color: var(--constrast-color);
+  padding: 0px 8px;
+}
+
+.login-input-text {
+  padding: 10px 20px;
+  background: transparent;
+  color: var(--constrast-color);
+  border: 1px solid var(--details-color);
+  border-radius: 8px;
+  width: 100%;
+}
+
+.login-btn {
+  background: var(--constrast-color);
+  border: 1px solid var(--details-color);
+  border-radius: 8px;
+  padding: 10px;
+  color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.login-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--constrast-color);
+}
+
+.login-btn:disabled {
+  background-color: var(--details-color);
+  color: var(--constrast-color);
+  cursor: not-allowed;
+}
+
+.negative-btn {
+  background: var(--primary-color);
+  color: var(--constrast-color);
+}
+
+.negative-btn:hover {
+  background-color: var(--constrast-color);
+  color: var(--primary-color);
+}
+
+.login-form-footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.login-form-footer > a {
+  color: var(--foreground-color);
+  text-decoration: none;
+  font-size: 12px;
+  padding: 2px 8px;
+  transition: all 200ms;
+}
+
+.login-form-footer > a:hover {
+  color: var(--constrast-color);
+  text-decoration: none;
+  background-color: var(--details-color);
+  border-radius: 5px;
+}
+
+.login-cta-component {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.login-side-panel {
+  background: var(--secondary-color);
+  border: 1px solid var(--details-color);
+  display: flex;
+  justify-content: end;
+  align-items: flex-end;
+  padding: 2rem 3rem;
+  color: var(--foreground-color);
+}
+
+.login-dumb-quote {
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.login-dumb-quote > span {
+  font-size: 14px;
+}
+
+.login-subtitle {
+  font-size: 15px;
+  color: var(--foreground-color);
+  text-align: center;
+}
+
+.login-error-component {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.login-error-msg {
+  background: #ff00002e;
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--contrast-color);
+}
