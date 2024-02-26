@@ -61,12 +61,12 @@ class UsersService {
     return user
   }
 
-  async updatePassword({ email, password: newPassword }) {
-    if (!email || !newPassword) {
+  async updatePassword({ user, password: newPassword }) {
+    if (!user || !newPassword) {
       throw new ValidationError('Some data is missing!')
     }
 
-    const { _id: id } = await findByEmail(email)
+    const { _id: id } = user
 
     const password = await hashData(newPassword)
 

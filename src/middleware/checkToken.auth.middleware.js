@@ -1,4 +1,3 @@
-import { AuthError, ValidationError } from '../errors/errors.js'
 import { usersService } from '../services/users.service.js'
 import { checkExpiration, readToken } from '../utils/index.js'
 

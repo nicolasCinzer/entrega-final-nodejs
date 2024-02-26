@@ -46,10 +46,10 @@ export const sendResetEmail = async (req, res, next) => {
 
 export const resetPassword = async (req, res, next) => {
   const { password } = req.body
-  const email = req.payload
+  const user = req.payload
 
   try {
-    await usersService.updatePassword({ email, password })
+    await usersService.updatePassword({ user, password })
 
     success({ res, redirect: '/login' })
   } catch (err) {
