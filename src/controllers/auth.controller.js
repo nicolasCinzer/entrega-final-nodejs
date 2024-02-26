@@ -36,9 +36,9 @@ export const sendResetEmail = async (req, res, next) => {
   const { email } = req.body
 
   try {
-    const { url, token } = await usersService.sendResetPasswordMail(email)
+    await usersService.sendResetPasswordMail(email)
 
-    success({ res, message: `Reset password email sended to ${email}!`, features: { url, token } })
+    success({ res, redirect: '/login' })
   } catch (err) {
     next(err)
   }
@@ -49,9 +49,9 @@ export const resetPassword = async (req, res, next) => {
   const email = req.payload
 
   try {
-    const updatedUser = await usersService.updatePassword({ email, password })
+    await usersService.updatePassword({ email, password })
 
-    success({ res, message: `Reset password successfully for ${email}!`, features: updatedUser })
+    success({ res, redirect: '/login' })
   } catch (err) {
     if (err.status === 401) return res.redirect('/signup')
 

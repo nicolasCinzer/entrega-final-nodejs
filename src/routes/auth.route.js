@@ -36,10 +36,10 @@ router.get('/auth/current', passport.authenticate('current', { session: false })
 
 router.post('/auth/logout', passport.authenticate('current', { session: false }), logout)
 
-router.get('/auth/auth/github', passport.authenticate('github', { scope: ['user:email'] }))
+router.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }))
 
 router.get(
-  '/auth/auth/github/callback',
+  '/auth/github/callback',
   passport.authenticate('github', {
     successRedirect: '/home',
     failureRedirect: '/login'
@@ -48,4 +48,4 @@ router.get(
 
 router.post('/auth/sendReset', sendResetEmail)
 
-router.post('/auth/reset', checkToken, resetPassword)
+router.post('/auth/reset', checkToken('auth'), resetPassword)

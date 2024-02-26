@@ -74,16 +74,25 @@ export const renderSignup = (req, res) => {
 
 export const renderProfile = (req, res) => {
   const { user } = req.user
-  
+
   const view = 'profile'
 
   res.render(view, { user, baseClass: view })
 }
 
-export const renderResetPasword = (_, res) => {
+export const renderSendEmailResetPassword = (_, res) => {
+  const view = 'sendEmailResetPassword'
+
+  res.render(view, { baseClass: 'login' })
+}
+
+export const renderResetPasword = (req, res) => {
+  const { token } = req.query
+  const { error } = req
+
   const view = 'resetPassword'
 
-  res.render(view)
+  res.render(view, { baseClass: 'login', token, error })
 }
 
 export const renderError = (_, res) => {

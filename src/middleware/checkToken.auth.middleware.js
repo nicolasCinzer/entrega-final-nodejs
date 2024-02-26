@@ -2,20 +2,36 @@ import { AuthError, ValidationError } from '../errors/errors.js'
 import { usersService } from '../services/users.service.js'
 import { checkExpiration, readToken } from '../utils/index.js'
 
-export const checkToken = async (req, res, next) => {
-  const token = req.headers.authorization.split('Bearer ')[1]
+export const checkToken = type => {
+  return async (req, res, next) => {
+    const { token } = req.query
 
-  const payload = readToken(token)
+    let payload = {}
 
-  const { email, iat } = payload
+    try {
+      payload = readToken(token)
+    } catch (error) {
+      return next(error)
+    }
 
-  if (checkExpiration(iat)) next(new AuthError('Token has expired.'))
+    const { email, exp } = payload
 
-  const user = await usersService.findByEmail(email)
+    const user = await usersService.findByEmail(email)
 
-  if (!user) return next(new ValidationError('User not found.'))
+    if (type === 'view') {
+      if (!user) return res.redirect('/error')
 
-  req.payload = email
+      if (checkExpiration(exp) || user.temp_token !== token) {
+        req.error = 'expired-token'
+      }
 
-  next()
+      return next()
+    }
+
+    if (checkExpiration(exp)) return res.redirect(`/reset/password/${user._id.toString()}?token=${token}`)
+
+    req.payload = user
+
+    next()
+  }
 }

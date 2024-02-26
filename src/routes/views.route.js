@@ -7,10 +7,12 @@ import {
   renderProfile,
   renderSignup,
   renderResetPasword,
+  renderSendEmailResetPassword,
   renderError,
   renderLoadDocuments
 } from '../controllers/views.controller.js'
 import passport from '../config/passport.js'
+import { checkToken } from '../middleware/checkToken.auth.middleware.js'
 
 export const router = Router()
 
@@ -32,7 +34,9 @@ router.get('/signup', renderSignup)
 
 router.get('/profile', passport.authenticate('current', passportOptions), renderProfile)
 
-router.get('/resetPassword', renderResetPasword)
+router.get('/reset/password', renderSendEmailResetPassword)
+
+router.get('/reset/password/:id', checkToken('view'), renderResetPasword)
 
 router.get('/error', renderError)
 

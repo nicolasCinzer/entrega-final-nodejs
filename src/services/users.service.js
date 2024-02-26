@@ -1,6 +1,6 @@
 import { findByEmail, findById, create, updateUser, switchRole, find, registrateLastConnection } from '../DAL/dao/users.dao.js'
 import { UsersDTO } from '../DAL/dto/users.dto.js'
-import { ValidationError, AuthError, NotFoundError } from '../errors/errors.js'
+import { ValidationError, AuthError, NotFoundError, BadRequest } from '../errors/errors.js'
 import { hashData, compareData, generateToken, buildURL, resetPasswordEmail } from '../utils/index.js'
 import { removeDuplicates } from '../utils/removeDuplicates.js'
 
@@ -70,7 +70,11 @@ class UsersService {
 
     const password = await hashData(newPassword)
 
-    return updateUser({ updates: { password }, id })
+    const updatedUser = await updateUser({ updates: { password }, id })
+
+    updatedUser.temp_token = ''
+
+    await updatedUser.save()
   }
 
   async switchRole(id) {
@@ -98,7 +102,7 @@ class UsersService {
 
     await registrateLastConnection({ user, updatedLastConnection })
 
-    return generateToken(payload)
+    return generateToken(payload, '5m')
   }
 
   async logout({ id }) {
@@ -118,15 +122,17 @@ class UsersService {
   }
 
   async sendResetPasswordMail(email) {
+    if (!email) throw new BadRequest('Email is required.')
+
     const user = await findByEmail(email)
 
-    const token = generateToken({ email })
+    const token = generateToken({ email }, '1h')
 
     user.temp_token = token
 
-    await user.save
+    await user.save()
 
-    const url = buildURL(`/auth/reset?token=${token}`)
+    const url = buildURL(`/reset/password/${user._id.toString()}?token=${token}`)
 
     await resetPasswordEmail({ to: email, url })
 
