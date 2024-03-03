@@ -45,7 +45,11 @@ export const renderHome = async (req, res) => {
     return res.redirect('/login')
   }
 
-  const { limit, page, sort, query } = req.query
+  let { limit, page, sort, ...query } = req.query
+
+  if (query?.title === '') {
+    query = {}
+  }
 
   const products = await productsService.getProducts({ limit, page, sort, query }, true)
 
@@ -67,8 +71,10 @@ export const renderHome = async (req, res) => {
     uid: id.toString()
   }
 
-  products.hasPrevPage ? (attributes['prevPage'] = `http://localhost:8080/home?page=${products.prevPage}`) : null
-  products.hasNextPage ? (attributes['nextPage'] = `http://localhost:8080/home?page=${products.nextPage}`) : null
+  let searchParams = new URLSearchParams(req.query)
+
+  products.hasPrevPage ? (attributes['prevPage'] = `http://localhost:8080/home?page=${products.prevPage}&${searchParams}`) : null
+  products.hasNextPage ? (attributes['nextPage'] = `http://localhost:8080/home?page=${products.nextPage}&${searchParams}`) : null
 
   res.render('home', attributes)
 }

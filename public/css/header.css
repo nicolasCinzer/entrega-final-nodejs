@@ -43,16 +43,18 @@
   outline: none;
 }
 
-.header-searcher > i {
+.header-searcher > button {
   padding: 12px;
   border-radius: 0px 8px 8px 0px;
   cursor: pointer;
   height: 40.8px;
   border: 1px solid var(--details-color);
   border-left: 0px;
+  background: transparent;
+  color: var(--constrast-color);
 }
 
-.header-searcher > i:hover {
+.header-searcher > button:hover {
   background-color: var(--details-color);
 }
 

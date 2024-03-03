@@ -1,11 +1,10 @@
 import { showToast } from './showToast.js'
+window.__productsFn = { addToCart }
 
 const url = 'http://localhost:8080'
 const cartElements = {
   amountProducts: document.getElementById('amountProductsInCart')
 }
-
-window.__productsFn = { addToCart }
 
 async function addToCart(evt, cid, pid) {
   let res

@@ -4,6 +4,11 @@ import { checkValidOID } from '../utils/index.js'
 
 class ProductsService {
   async getProducts({ limit = 10, page = 1, sort = 'def', query = {} } = {}, paginated = false) {
+    const { title } = query
+    if (title) {
+      query.title = { $regex: `.*${title}.*`, $options: 'i' }
+    }
+
     if (!paginated) {
       try {
         return getProducts(query)
