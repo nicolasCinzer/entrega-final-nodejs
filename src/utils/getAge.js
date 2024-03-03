@@ -1,0 +1,1 @@
+export const getAge = (age) => Math.floor((new Date() - new Date(age)) / 31556952000)

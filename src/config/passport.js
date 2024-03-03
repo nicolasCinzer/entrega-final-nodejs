@@ -15,7 +15,7 @@ import {
   gitHubClientSecret,
   jwtSecretKey
 } from './config.js'
-import { AuthError } from '../errors/errors.js'
+import { getAge } from '../utils/getAge.js'
 
 passport.use(
   'signup',
@@ -25,10 +25,14 @@ passport.use(
       usernameField: 'email'
     },
     async (req, _, __, done) => {
+      const user = req.body
+
+      user.age = getAge(user.age)
+
       try {
         const cart = await cartsService.createCart()
 
-        const reqUser = UsersDTO.request({ ...req.body, cart: cart })
+        const reqUser = UsersDTO.request({ ...user, cart: cart })
 
         const newUser = await usersService.create(reqUser)
 
@@ -54,8 +58,9 @@ passport.use(
 
         return done(null, user)
       } catch (error) {
-        if (error.statusCode) return done(null, false)
-        return done(new AuthError(error))
+        if (error.statusCode) return done(null, false, { message: error.message })
+
+        return done(new Error(error))
       }
     }
   )

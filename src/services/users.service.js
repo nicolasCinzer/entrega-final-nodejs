@@ -56,7 +56,7 @@ class UsersService {
 
     const isCorrectPw = await compareData(password, user.password)
 
-    if (!isCorrectPw) throw new AuthError('Password is not correct.')
+    if (!isCorrectPw) throw new AuthError('Email or Password are not correct.')
 
     return user
   }
@@ -102,7 +102,7 @@ class UsersService {
 
     await registrateLastConnection({ user, updatedLastConnection })
 
-    return generateToken(payload, '5m')
+    return generateToken(payload, '1h')
   }
 
   async logout({ id }) {

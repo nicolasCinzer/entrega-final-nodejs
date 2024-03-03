@@ -5,6 +5,7 @@ export class UsersDTO {
     this.email = email
     this.age = age
     this.cart = cart._id
+
     this.role = role
 
     if (isRequest) {
@@ -16,6 +17,7 @@ export class UsersDTO {
       this.documents = documents
       this.acceptable_premium = acceptable_premium
       this.id = _id
+      this.user_initials = `${first_name[0]}${last_name[0]}`
       this.full_name = `${first_name} ${last_name}`
     }
   }

@@ -1,12 +1,45 @@
 import { productsService } from '../services/products.service.js'
 import { cartsService } from '../services/carts.service.js'
 
-export const renderChat = (_, res) => {
-  res.render('chat')
+const authBaseClass = 'auth'
+
+export const renderLogin = (req, res) => {
+  if (req.cookies?.token) {
+    return res.redirect('/home')
+  }
+
+  const view = 'login'
+
+  res.render(view, { baseClass: authBaseClass })
+}
+
+export const renderSignup = (req, res) => {
+  if (req.cookies?.token) {
+    return res.redirect('/home')
+  }
+
+  const view = 'signup'
+
+  res.render(view, { baseClass: authBaseClass })
+}
+
+export const renderSendEmailResetPassword = (_, res) => {
+  const view = 'sendEmailResetPassword'
+
+  res.render(view, { baseClass: authBaseClass })
+}
+
+export const renderResetPasword = (req, res) => {
+  const { token } = req.query
+  const { error } = req
+
+  const view = 'resetPassword'
+
+  res.render(view, { baseClass: authBaseClass, token, error })
 }
 
 export const renderHome = async (req, res) => {
-  const { id, full_name } = req.user || {}
+  const { id, full_name, user_initials, cart } = req.user || {}
 
   if (!id) {
     return res.redirect('/login')
@@ -16,15 +49,22 @@ export const renderHome = async (req, res) => {
 
   const products = await productsService.getProducts({ limit, page, sort, query }, true)
 
+  const userCart = await cartsService.getCartById(cart)
+
   const attributes = {
     products: products.docs
       .map(product => product.toJSON())
       .map(product => ({ ...product, _id: product._id.toString(), category: product.category.replaceAll('|', ' • ') })),
     page: products.page,
+    products_amount: products.totalDocs,
     totalPages: products.totalPages,
     hasPrevPage: products.hasPrevPage,
     hasNextPage: products.hasNextPage,
-    user: full_name
+    user: full_name,
+    user_initials,
+    products_in_cart: userCart.products.length,
+    cid: userCart._id.toString(),
+    uid: id.toString()
   }
 
   products.hasPrevPage ? (attributes['prevPage'] = `http://localhost:8080/home?page=${products.prevPage}`) : null
@@ -52,47 +92,12 @@ export const renderCart = async (req, res) => {
   })
 }
 
-export const renderLogin = (req, res) => {
-  if (req.cookies?.token) {
-    return res.redirect('/home')
-  }
-
-  const view = 'login'
-
-  res.render(view, { baseClass: view })
-}
-
-export const renderSignup = (req, res) => {
-  if (req.cookies?.token) {
-    return res.redirect('/home')
-  }
-
-  const view = 'signup'
-
-  res.render(view, { baseClass: view })
-}
-
 export const renderProfile = (req, res) => {
   const { user } = req.user
 
   const view = 'profile'
 
   res.render(view, { user, baseClass: view })
-}
-
-export const renderSendEmailResetPassword = (_, res) => {
-  const view = 'sendEmailResetPassword'
-
-  res.render(view, { baseClass: 'login' })
-}
-
-export const renderResetPasword = (req, res) => {
-  const { token } = req.query
-  const { error } = req
-
-  const view = 'resetPassword'
-
-  res.render(view, { baseClass: 'login', token, error })
 }
 
 export const renderError = (_, res) => {
@@ -107,4 +112,8 @@ export const renderLoadDocuments = (req, res) => {
   const view = 'documents'
 
   res.render(view, { id })
+}
+
+export const renderChat = (_, res) => {
+  res.render('chat')
 }

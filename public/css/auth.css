@@ -1,12 +1,12 @@
 @import './styles.css';
 
-.login-panel {
+.auth-panel {
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100%;
 }
 
-.login-main-panel {
+.auth-main-panel {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,37 +15,37 @@
   border: 1px solid var(--details-color);
 }
 
-.login-container {
+.auth-container {
   border: 1px solid var(--details-color);
   padding: 2rem 2rem;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 12px;
   align-items: center;
   width: 50%;
 }
 
-.login-container > form {
+.auth-container > form {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.login-input-component {
+.auth-input-component {
   display: flex;
   flex-direction: column;
   gap: 4px;
   width: 100%;
 }
 
-.login-input-label {
+.auth-input-label {
   color: var(--constrast-color);
   padding: 0px 8px;
 }
 
-.login-input-text {
+.auth-input-text {
   padding: 10px 20px;
   background: transparent;
   color: var(--constrast-color);
@@ -54,7 +54,7 @@
   width: 100%;
 }
 
-.login-btn {
+.auth-btn {
   background: var(--constrast-color);
   border: 1px solid var(--details-color);
   border-radius: 8px;
@@ -65,15 +65,14 @@
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  transition: all 200ms;
 }
 
-.login-btn:hover {
+.auth-btn:hover {
   background-color: var(--primary-color);
   color: var(--constrast-color);
 }
 
-.login-btn:disabled {
+.auth-btn:disabled {
   background-color: var(--details-color);
   color: var(--constrast-color);
   cursor: not-allowed;
@@ -89,35 +88,34 @@
   color: var(--primary-color);
 }
 
-.login-form-footer {
+.auth-form-footer {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.login-form-footer > a {
+.auth-form-footer > a {
   color: var(--foreground-color);
   text-decoration: none;
   font-size: 12px;
   padding: 2px 8px;
-  transition: all 200ms;
 }
 
-.login-form-footer > a:hover {
+.auth-form-footer > a:hover {
   color: var(--constrast-color);
   text-decoration: none;
   background-color: var(--details-color);
   border-radius: 5px;
 }
 
-.login-cta-component {
+.auth-cta-component {
   display: flex;
   flex-direction: column;
   gap: 12px;
   width: 100%;
 }
 
-.login-side-panel {
+.auth-side-panel {
   background: var(--secondary-color);
   border: 1px solid var(--details-color);
   display: flex;
@@ -127,7 +125,7 @@
   color: var(--foreground-color);
 }
 
-.login-dumb-quote {
+.auth-dumb-quote {
   display: flex;
   flex-direction: column;
   text-align: end;
@@ -136,26 +134,31 @@
   font-size: 18px;
 }
 
-.login-dumb-quote > span {
+.auth-dumb-quote > span {
   font-size: 14px;
 }
 
-.login-subtitle {
+.auth-subtitle {
   font-size: 15px;
   color: var(--foreground-color);
   text-align: center;
 }
 
-.login-error-component {
+.auth-error-component {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   width: 100%;
 }
 
-.login-error-msg {
-  background: #ff00002e;
+.auth-error-msg {
+  background: var(--error-color);
   padding: 8px;
   border-radius: 8px;
   color: var(--contrast-color);
+}
+
+.signup-component {
+  flex-direction: row;
+  gap: 12px;
 }

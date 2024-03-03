@@ -11,14 +11,14 @@ router.post('/auth/signup', (req, res, next) => {
   passport.authenticate(
     'signup',
     {
-      successRedirect: '/login'
+      session: false
     },
     (err, user, message) => {
       if (err) return next(err)
 
       if (!user) return next(new ValidationError(message))
 
-      success({ res, message: 'User created successfully!' })
+      success({ res, redirect: '/login' })
     }
   )(req, res, next)
 })
@@ -26,8 +26,8 @@ router.post('/auth/signup', (req, res, next) => {
 router.post(
   '/auth/login',
   passport.authenticate('login', {
-    failureRedirect: '/signup',
-    session: false
+    session: false,
+    failureRedirect: '/login'
   }),
   login
 )

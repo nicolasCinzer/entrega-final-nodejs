@@ -1,5 +1,5 @@
-export const success = ({ res, message = '', features = [], restOfProperties = {}, redirect }) => {
+export const success = ({ res, message = '', features = [], redirect, ...restOfProperties }) => {
   if (redirect) return res.redirect(redirect)
 
-  return res.json({ message, payload: features, ...restOfProperties })
+  return res.json({ success: true, message, payload: features, ...restOfProperties })
 }

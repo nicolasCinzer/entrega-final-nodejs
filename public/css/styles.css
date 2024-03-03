@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
-@import './login.css';
+@import './auth.css';
+@import './header.css';
+@import './home.css';
 @import './visual-components.css';
+@import '../toastify/toastify.css';
 
 * {
   box-sizing: border-box;
@@ -11,20 +14,64 @@
 
 body {
   background: var(--primary-color);
+  color: var(--constrast-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.jost-font {
+.main-font {
   font-family: 'Jost', sans-serif;
   font-optical-sizing: auto;
   font-weight: 300;
   font-style: normal;
 }
 
-.jost-font-bold {
+.main-font-bold {
   font-family: 'Jost', sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
+}
+
+.transition {
+  transition: all 200ms;
+}
+
+/* * {
+  scrollbar-width: thin;
+  scrollbar-color: #2c2c32 #0a0b0b;
+} */
+
+*::-webkit-scrollbar {
+  height: 7px;
+  width: 7px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: var(--primary-color);
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: var(--primary-color);
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: var(--primary-color);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: var(--details-color);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--constrast-color);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: var(--constrast-color);
 }
 
 input:-webkit-autofill,
@@ -43,4 +90,5 @@ input:-webkit-autofill:active {
   --constrast-color: #fafafa;
   --details-color: #2c2c32;
   --foreground-color: #98989b;
+  --error-color: #ff00002e;
 }

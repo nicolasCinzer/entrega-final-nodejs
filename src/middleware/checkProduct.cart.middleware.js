@@ -5,9 +5,13 @@ export const checkProduct = async (req, res, next) => {
   const { pid } = req.params
   const { email, role } = req.user
 
-  const { owner } = await productsService.getProductById(pid)
+  const product = await productsService.getProductById(pid)
+
+  const { owner } = product
 
   if (role === 'premium' && owner === email) return next(new NotAllowedError("Your account can't perform this action."))
 
+  req.product = product
+  
   next()
 }

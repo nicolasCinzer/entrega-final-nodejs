@@ -25,11 +25,12 @@ export const createCart = async (_, res, next) => {
 
 export const addProductToCart = async (req, res, next) => {
   const { cid, pid } = req.params
+  const { title } = req.product
 
   try {
     const updatedCart = await cartsService.addProductToCart({ cid, pid })
 
-    success({ res, message: 'Cart Updated!', features: updatedCart, status: 200 })
+    success({ res, message: 'Cart Updated!', features: updatedCart, product: title, status: 200 })
   } catch (err) {
     next(err)
   }

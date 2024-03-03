@@ -1,32 +1,65 @@
-<form action='/api/auth/signup' method='post' id='form-{{baseClass}}'>
-  <div class='{{baseClass}}-container'>
-    <h1>SIGNUP</h1>
-    <div class='{{baseClass}}-input-component'>
-      <div class='{{baseClass}}-input-label'>First Name:</div>
-      <input class='{{baseClass}}-input-text' type='text' name='first_name' id='first_name' />
-    </div>
-    <div class='{{baseClass}}-input-component'>
-      <div class='{{baseClass}}-input-label'>Last Name:</div>
-      <input class='{{baseClass}}-input-text' type='text' name='last_name' id='last_name' />
-    </div>
-    <div class='{{baseClass}}-input-component'>
-      <div class='{{baseClass}}-input-label'>Age:</div>
-      <input class='{{baseClass}}-input-text' type='number' name='age' id='age' />
-    </div>
-    <div class='{{baseClass}}-input-component'>
-      <div class='{{baseClass}}-input-label'>Email:</div>
-      <input class='{{baseClass}}-input-text' type='email' name='email' id='email' />
-    </div>
-    <div class='{{baseClass}}-input-component'>
-      <div class='{{baseClass}}-input-label'>Password:</div>
-      <input class='{{baseClass}}-input-text' type='password' name='password' id='password' />
-    </div>
-    <div class='{{baseClass}}-btn-component'>
-      <button type='submit'>Sign Up</button>
+<div class='{{baseClass}}-panel'>
+  <div class='{{baseClass}}-main-panel'>
+    <div class='{{baseClass}}-container'>
+      <h1 class='{{baseClass}}-title'>JUST BUY IT.</h1>
+      <form action='/api/auth/signup' method='post' id='form-{{baseClass}}'>
+        <div class='{{baseClass}}-input-component signup-component'>
+          <div>
+            <div class='{{baseClass}}-input-label'>FIRST NAME</div>
+            <input class='{{baseClass}}-input-text main-font-bold' type='text' name='first_name' id='first_name' placeholder='John' />
+          </div>
+          <div>
+            <div class='{{baseClass}}-input-label'>LAST NAME</div>
+            <input class='{{baseClass}}-input-text main-font-bold' type='text' name='last_name' id='last_name' placeholder='Doe' />
+          </div>
+        </div>
+        <div class='{{baseClass}}-input-component'>
+          <div class='{{baseClass}}-input-label'>AGE</div>
+          <input class='{{baseClass}}-input-text main-font-bold' type='date' name='age' id='age' />
+        </div>
+        <div class='{{baseClass}}-input-component'>
+          <div class='{{baseClass}}-input-label'>EMAIL</div>
+          <input class='{{baseClass}}-input-text main-font-bold' type='email' name='email' id='email' placeholder='foo@bar.com' />
+        </div>
+        <div class='{{baseClass}}-input-component'>
+          <div class='{{baseClass}}-input-label'>PASSWORD</div>
+          <input class='{{baseClass}}-input-text main-font-bold' type='password' name='password' id='password' placeholder='Your Password' />
+        </div>
+        <button type='submit' class='{{baseClass}}-btn main-font-bold transition'>SIGN UP</button>
+      </form>
+      <div class='{{baseClass}}-form-footer transition'>
+        <a href='/login'>ALREADY HAVE ACCOUNT? LOG IN</a>
+      </div>
+      <div class='visual-component divider'>
+        <div class='visual-component middle-line'>
+          <span class='visual-component line'></span>
+        </div>
+        <div class='visual-component text-box'>
+          <span class='visual-component text'>OR CONTINUE WITH</span>
+        </div>
+      </div>
+      <div class='{{baseClass}}-cta-component'>
+        <button class='{{baseClass}}-btn negative-btn main-font-bold transition' onclick="window.location.href='/api/auth/github';">
+          <i class='fa-brands fa-github'></i>
+          GITHUB
+        </button>
+        <button class='{{baseClass}}-btn negative-btn main-font-bold transition' onclick="window.location.href='/api/auth/google';">
+          <i class='fa-brands fa-google'></i>
+          GOOGLE
+        </button>
+      </div>
     </div>
   </div>
-</form>
 
-<a href='/login'>Already have an account?</a>
-<button><a href='/api/auth/auth/github'>GITHUB</a></button>
-<button><a href='/api/auth/auth/google'>GOOGLE</a></button>
+  <div class='{{baseClass}}-side-panel'>
+    <div class='{{baseClass}}-dumb-quote'>
+      "Dont think twice. Just buy it."
+      <br />
+      <span>
+        - Nicolas Cinzer
+      </span>
+    </div>
+  </div>
+</div>
+
+<script src='/js/auth.js'></script>

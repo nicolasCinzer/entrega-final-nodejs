@@ -1,5 +1,6 @@
 import { usersService } from '../services/users.service.js'
 import { success } from '../utils/successResponse.js'
+import { renderLogin } from './views.controller.js'
 
 const paths = {
   login: '/login',
@@ -22,7 +23,7 @@ export const login = async (req, res, next) => {
   try {
     const token = await usersService.login({ user: req.user })
 
-    res.cookie('token', token, { httpOnly: true, maxAge: 60000 }).redirect('/home')
+    res.cookie('token', token, { httpOnly: true, maxAge: 3600000 }).redirect('/home')
   } catch (error) {
     next(error)
   }

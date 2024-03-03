@@ -1,0 +1,122 @@
+.products-container {
+  overflow-y: scroll;
+  padding: 1rem 2rem;
+  flex: 1;
+}
+
+.products-header-infomation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.products-header-information-amount {
+  font-size: 17px;
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: var(--secondary-color);
+}
+
+.products-header-information-pagination {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.products-header-information-pagination > i {
+  font-size: 12px;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.products-header-information-pagination > i:hover {
+  background-color: var(--details-color);
+}
+
+.products-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 2rem;
+}
+
+.products-item {
+  display: flex;
+  width: 50%;
+  border: 1px solid var(--details-color);
+  border-radius: 12px;
+  background-color: var(--secondary-color);
+}
+
+.products-item-img > img {
+  border-radius: 12px 0px 0px 12px;
+  width: 175px;
+}
+
+.products-item-middle {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.products-item-title {
+  font-size: 22px;
+}
+
+.products-item-category {
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 4px 8px;
+  width: fit-content;
+  background: var(--primary-color);
+}
+
+.products-item-add-cart-btn {
+  width: 200px;
+  background: var(--constrast-color);
+  border: 1px solid var(--details-color);
+  border-radius: 8px;
+  padding: 6px;
+  color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.products-item-add-cart-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--constrast-color);
+}
+
+.products-item-add-cart-btn:disabled {
+  background-color: var(--details-color);
+  color: var(--constrast-color);
+  cursor: not-allowed;
+}
+
+.products-item-end {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  padding: 1rem 2rem;
+  justify-content: flex-end;
+}
+
+.products-item-price {
+  font-size: 32px;
+}
+
+.products-item-stock {
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 4px 8px;
+  width: fit-content;
+  background: var(--primary-color);
+}

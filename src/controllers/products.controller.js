@@ -25,7 +25,7 @@ export const getProducts = async (req, res, next) => {
 
     const features = paginated ? products.docs : products
 
-    success({ res, message, features, restOfProperties })
+    success({ res, message, features, ...restOfProperties })
   } catch (err) {
     next(err)
   }
