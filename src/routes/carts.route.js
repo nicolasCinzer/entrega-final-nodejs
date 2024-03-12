@@ -14,18 +14,20 @@ import passport from '../config/passport.js'
 
 export const router = Router()
 
-router.post('/carts', passport.authenticate('current', { session: false }), checkCart, createCart)
+const passportMiddleware = passport.authenticate('current', { session: false })
 
-router.get('/carts/:cid', passport.authenticate('current', { session: false }), checkCart, getCartByID)
+router.post('/carts', passportMiddleware, checkCart, createCart)
 
-router.post('/carts/:cid', passport.authenticate('current', { session: false }), checkCart, addMultipleProductsToCart)
+router.get('/carts/:cid', passportMiddleware, checkCart, getCartByID)
 
-router.delete('/carts/:cid', passport.authenticate('current', { session: false }), checkCart, deleteAllProductsFromCart)
+router.post('/carts/:cid', passportMiddleware, checkCart, addMultipleProductsToCart)
 
-router.post('/carts/:cid/product/:pid', passport.authenticate('current', { session: false }), checkCart, checkProduct, addProductToCart)
+router.delete('/carts/:cid', passportMiddleware, checkCart, deleteAllProductsFromCart)
 
-router.put('/carts/:cid/product/:pid', passport.authenticate('current', { session: false }), checkCart, updateProductQty)
+router.post('/carts/:cid/product/:pid', passportMiddleware, checkCart, checkProduct, addProductToCart)
 
-router.delete('/carts/:cid/product/:pid', passport.authenticate('current', { session: false }), checkCart, deleteProductFromCart)
+router.put('/carts/:cid/product/:pid', passportMiddleware, checkCart, updateProductQty)
 
-router.post('/carts/:cid/purchase', passport.authenticate('current', { session: false }), checkCart, purchase)
+router.delete('/carts/:cid/product/:pid', passportMiddleware, checkCart, deleteProductFromCart)
+
+router.post('/carts/:cid/purchase', passportMiddleware, checkCart, purchase)

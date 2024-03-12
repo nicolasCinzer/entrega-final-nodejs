@@ -9,9 +9,9 @@ const transporter = createTransport({
   }
 })
 
-export const sendTicketMail = async ({ to, ticketCode, totalItems, totalCost, attachments }) => {
+export const sendTicketMail = ({ to, ticketCode, totalItems, totalCost, attachments }) => {
   const mailOptions = {
-    from: 'pichichi@ecommerce.com.ar',
+    from: nodemailerEmail,
     to,
     subject: `Ticket de Compra Generado - COD:: ${ticketCode}`,
     html: `
@@ -23,14 +23,12 @@ export const sendTicketMail = async ({ to, ticketCode, totalItems, totalCost, at
     attachments
   }
 
-  const email = await transporter.sendMail(mailOptions)
-
-  return email
+  return sendMail(mailOptions)
 }
 
-export const resetPasswordEmail = async ({ to, url }) => {
+export const resetPasswordEmail = ({ to, url }) => {
   const mailOptions = {
-    from: 'pichichi@ecommerce.com.ar',
+    from: nodemailerEmail,
     to,
     subject: `Recuperacion de Contraseña`,
     html: `
@@ -42,6 +40,40 @@ export const resetPasswordEmail = async ({ to, url }) => {
     `
   }
 
+  return sendMail(mailOptions)
+}
+
+export const deletedAccountEmail = ({ to }) => {
+  const mailOptions = {
+    from: nodemailerEmail,
+    to,
+    subject: `Tu cuenta ha sido eliminada por inactividad.`,
+    html: `
+      <h2>Tu cuenta ha sido eliminada por inactividad!</h2>
+      <p>Estimado usuario, su cuenta ha sido eliminada por inactividad. En caso de necesitar recuperar la cuenta, contacte soporte.</p>
+      <footer>Soporte +99 1337 420 069</footer>
+    `
+  }
+
+  return sendMail(mailOptions)
+}
+
+export const deletedProductEmail = ({ to, productName }) => {
+  const mailOptions = {
+    from: nodemailerEmail,
+    to,
+    subject: `Tu producto '${productName}' ha sido eliminado.`,
+    html: `
+      <h2>Tu producto ha sido eliminado!</h2>
+      <p>Estimado usuario, su producto identificado como '${productName}' con codigo #${productCode} ha sido eliminado. En caso de necesitar recuperar el producto, contacte soporte.</p>
+      <footer>Soporte +99 1337 420 069</footer>
+    `
+  }
+
+  return sendMail(mailOptions)
+}
+
+export const sendMail = async mailOptions => {
   const email = await transporter.sendMail(mailOptions)
 
   return email

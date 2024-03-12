@@ -88,12 +88,12 @@ export const deleteProductFromCart = async (req, res, next) => {
 
 export const purchase = async (req, res, next) => {
   const { cid } = req.params
-  const { email } = req.user
+  const { email, id } = req.user
 
   try {
-    const { ticket, nonStockedProducts } = await cartsService.purchaseItems({ cid, email })
-
-    success({ res, message: 'Purchase complete', features: ticket, status: 200, restOfProperties: { nonStockedProducts } })
+    const { ticket, nonStockedProducts } = await cartsService.purchaseItems({ cid, email, uid: id })
+    
+    success({ res, redirect: '/purchase/ticket' })
   } catch (err) {
     next(err)
   }

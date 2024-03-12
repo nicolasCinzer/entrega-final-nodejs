@@ -9,10 +9,10 @@ router.get('/products', getProducts)
 
 router.get('/products/:pid', getProductByID)
 
-router.post('/products', passport.authenticate('current', { session: false }), auth, createProduct)
+router.post('/products', passport.authenticate('current', { session: false }), auth(['admin', 'premium']), createProduct)
 
-router.put('/products/:pid', passport.authenticate('current', { session: false }), auth, rolePermission, updateProduct)
+router.put('/products/:pid', passport.authenticate('current', { session: false }), auth(['admin', 'premium']), rolePermission, updateProduct)
 
-router.delete('/products/:pid', passport.authenticate('current', { session: false }), auth, rolePermission, deleteProduct)
+router.delete('/products/:pid', passport.authenticate('current', { session: false }), auth(['admin', 'premium']), rolePermission, deleteProduct)
 
 router.get('/mockingproducts', mockingProducts)

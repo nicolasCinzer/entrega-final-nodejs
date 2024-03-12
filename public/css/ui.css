@@ -1,0 +1,24 @@
+.btn {
+  width: 200px;
+  background: var(--constrast-color);
+  border: 1px solid var(--details-color);
+  border-radius: 8px;
+  padding: 6px;
+  color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: var(--primary-color);
+  color: var(--constrast-color);
+}
+
+.btn:disabled {
+  background-color: var(--details-color);
+  color: var(--constrast-color);
+  cursor: not-allowed;
+}

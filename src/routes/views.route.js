@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import {
   renderCart,
-  renderChat,
   renderHome,
   renderLogin,
   renderProfile,
@@ -9,7 +8,9 @@ import {
   renderResetPasword,
   renderSendEmailResetPassword,
   renderError,
-  renderLoadDocuments
+  renderLoadDocuments,
+  renderPurchase,
+  renderTicket
 } from '../controllers/views.controller.js'
 import passport from '../config/passport.js'
 import { checkToken } from '../middleware/checkToken.auth.middleware.js'
@@ -32,12 +33,14 @@ router.get('/reset/password/:id', checkToken('view'), renderResetPasword)
 
 router.get('/home', passport.authenticate('current', passportOptions), renderHome)
 
-router.get('/cart/:cid', passport.authenticate('current', passportOptions), renderCart)
+router.get('/cart', passport.authenticate('current', passportOptions), renderCart)
+
+router.get('/purchase', passport.authenticate('current', passportOptions), renderPurchase)
+
+router.get('/purchase/ticket', passport.authenticate('current', passportOptions), renderTicket)
 
 router.get('/profile', passport.authenticate('current', passportOptions), renderProfile)
 
 router.get('/documents', passport.authenticate('current', passportOptions), renderLoadDocuments)
 
 router.get('/error', renderError)
-
-router.get('/chat', passport.authenticate('current', passportOptions), renderChat)

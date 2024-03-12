@@ -18,11 +18,11 @@ export const findByEmail = async email => {
 }
 
 export const find = async query => {
-  const user = await usersModel.findOne(query)
+  const users = await usersModel.find(query)
 
-  if (!user) throw new ValidationError('User not Found')
+  if (!users) throw new ValidationError('Users not Found')
 
-  return user
+  return users
 }
 
 export const create = async user => usersModel.create(user)
@@ -42,3 +42,5 @@ export const registrateLastConnection = async ({ user, updatedLastConnection }) 
 
   await user.save()
 }
+
+export const deleteUsers = async (filter = {}) => usersModel.deleteMany(filter, { new: true })

@@ -88,7 +88,7 @@ class CartsService {
     }
   }
 
-  async purchaseItems({ cid, email }) {
+  async purchaseItems({ cid, email}) {
     checkValidOID(cid)
 
     try {
@@ -117,7 +117,8 @@ class CartsService {
       const ticket = {
         amount: productsPurchased.reduce((prev, curr) => prev + curr.total, 0),
         purchaser: email,
-        code: createHash()
+        code: createHash(),
+        products: products.map(product => ({ title: product.title, quantity: product.quantity, total: product.total }))
       }
 
       const generatedTicket = await generateTicket(ticket)

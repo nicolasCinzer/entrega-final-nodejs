@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { saveDocuments, switchRole } from '../controllers/users.controller.js'
-import { upload } from '../middleware/multer.middleware.js'
+import { saveDocuments, switchRole, deleteInactiveUsers, getAllUsers } from '../controllers/users.controller.js'
+import { auth, upload } from '../middleware/index.js'
 import passport from '../config/passport.js'
 
 export const router = Router()
@@ -17,3 +17,7 @@ router.post(
   ]),
   saveDocuments
 )
+
+router.get('/users', passport.authenticate('current', { session: false, failureRedirect: '/login' }), auth(['admin']), getAllUsers)
+
+router.delete('/users', passport.authenticate('current', { session: false, failureRedirect: '/login' }), auth(['admin']), deleteInactiveUsers)

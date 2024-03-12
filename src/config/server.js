@@ -1,13 +1,11 @@
 // External Dependencies
 import express from 'express'
 import { engine } from 'express-handlebars'
-import { Server } from 'socket.io'
 import cookieParser from 'cookie-parser'
 
 // Internal Dependencies
 import Routes from '../routes/router.js'
 import { errorHandler } from '../middleware/index.js'
-import messagesService from '../services/messages.service.js'
 import passport from './passport.js'
 import { PORT, coockieSecretKey } from './config.js'
 import '../utils/includesAll.js'
@@ -41,23 +39,4 @@ export const runApp = () => {
   })
 
   return httpServer
-}
-
-export const runSocket = httpServer => {
-  const socketServer = new Server(httpServer)
-
-  socketServer.on('connection', socket => {
-    socket.on('newUser', user => {
-      socket.broadcast.emit('newUserConnected', user)
-    })
-
-    socket.on('newMessage', async ({ user, message }) => {
-      if (!message) return
-
-      await messagesService.addMessage(user, message)
-
-      const messages = await messagesService.getMessages()
-      socketServer.emit('chat', messages)
-    })
-  })
 }

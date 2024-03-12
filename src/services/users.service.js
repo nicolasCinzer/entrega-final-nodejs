@@ -1,7 +1,7 @@
-import { findByEmail, findById, create, updateUser, switchRole, find, registrateLastConnection } from '../DAL/dao/users.dao.js'
+import { findByEmail, findById, create, updateUser, switchRole, find, registrateLastConnection, deleteUsers } from '../DAL/dao/users.dao.js'
 import { UsersDTO } from '../DAL/dto/users.dto.js'
 import { ValidationError, AuthError, NotFoundError, BadRequest } from '../errors/errors.js'
-import { hashData, compareData, generateToken, buildURL, resetPasswordEmail } from '../utils/index.js'
+import { hashData, compareData, generateToken, buildURL, resetPasswordEmail, deletedAccountEmail } from '../utils/index.js'
 import { removeDuplicates } from '../utils/removeDuplicates.js'
 
 class UsersService {
@@ -9,8 +9,16 @@ class UsersService {
     return findById(id)
   }
 
-  async find(query) {
+  async find(query = {}) {
     return find(query)
+  }
+
+  async retrieveAll({ forView = true }) {
+    const users = await find({})
+
+    if (forView) return users.map(user => UsersDTO.view(user))
+
+    return users.map(user => UsersDTO.response(user))
   }
 
   async findByEmail(email) {
@@ -162,6 +170,25 @@ class UsersService {
     updatedUser.acceptable_premium = updatedUser.documents.filter(doc => ['id', 'bank', 'address'].includes(doc.name)).length === 3
 
     return updatedUser.save()
+  }
+
+  async deleteInactiveUser() {
+    const filter = {
+      $or: [
+        { 'last_connection.timestamp': { $lte: new Date(new Date().setDate(new Date().getDate() - 2)) } },
+        { 'last_connection.timestamp': { $eq: null } }
+      ]
+    }
+
+    const inactiveUsers = await find(filter)
+
+    if (inactiveUsers.length) {
+      const emails = inactiveUsers.map(user => user.email).filter(x => x)
+
+      await deletedAccountEmail({ to: emails })
+    }
+
+    return deleteUsers(filter)
   }
 }
 

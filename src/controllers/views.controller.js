@@ -1,5 +1,4 @@
-import { productsService } from '../services/products.service.js'
-import { cartsService } from '../services/carts.service.js'
+import { viewsService } from '../services/views.service.js'
 
 const authBaseClass = 'auth'
 
@@ -47,55 +46,45 @@ export const renderHome = async (req, res) => {
 
   let { limit, page, sort, ...query } = req.query
 
-  if (query?.title === '') {
-    query = {}
-  }
+  const renderVariables = await viewsService.buildProductsRender({ queryOpt: { limit, page, sort, query }, full_name, user_initials, cart })
 
-  const products = await productsService.getProducts({ limit, page, sort, query }, true)
-
-  const userCart = await cartsService.getCartById(cart)
-
-  const attributes = {
-    products: products.docs
-      .map(product => product.toJSON())
-      .map(product => ({ ...product, _id: product._id.toString(), category: product.category.replaceAll('|', ' • ') })),
-    page: products.page,
-    products_amount: products.totalDocs,
-    totalPages: products.totalPages,
-    hasPrevPage: products.hasPrevPage,
-    hasNextPage: products.hasNextPage,
-    user: full_name,
-    user_initials,
-    products_in_cart: userCart.products.length,
-    cid: userCart._id.toString(),
-    uid: id.toString()
-  }
-
-  let searchParams = new URLSearchParams(req.query)
-
-  products.hasPrevPage ? (attributes['prevPage'] = `http://localhost:8080/home?page=${products.prevPage}&${searchParams}`) : null
-  products.hasNextPage ? (attributes['nextPage'] = `http://localhost:8080/home?page=${products.nextPage}&${searchParams}`) : null
-
-  res.render('home', attributes)
+  res.render('home', renderVariables)
 }
 
 export const renderCart = async (req, res) => {
-  const { cid } = req.params
+  const { id, full_name, user_initials, cart } = req.user || {}
 
-  const cart = await cartsService.getCartById(cid)
+  if (!id) {
+    return res.redirect('/login')
+  }
 
-  const products = cart.products
-    .map(({ product, quantity }) => ({ ...product.toJSON(), quantity }))
-    .map(product => ({
-      ...product,
-      _id: product._id.toString(),
-      category: product.category.replaceAll('|', ' • '),
-      price: product.price * product.quantity
-    }))
+  const renderVariables = await viewsService.buildCartRender({ full_name, user_initials, cart })
 
-  res.render('cart', {
-    products
-  })
+  res.render('cart', renderVariables)
+}
+
+export const renderPurchase = async (req, res) => {
+  const { id, full_name, user_initials, cart } = req.user || {}
+
+  if (!id) {
+    return res.redirect('/login')
+  }
+
+  const renderVariables = await viewsService.buildCartRender({ full_name, user_initials, cart })
+
+  res.render('purchase', renderVariables)
+}
+
+export const renderTicket = async (req, res) => {
+  const { id, full_name, user_initials, cart, email } = req.user || {}
+
+  if (!id) {
+    return res.redirect('/login')
+  }
+
+  const renderVariables = await viewsService.buildTicketRender({ full_name, user_initials, cart, email })
+
+  res.render('ticket', renderVariables)
 }
 
 export const renderProfile = (req, res) => {
@@ -118,8 +107,4 @@ export const renderLoadDocuments = (req, res) => {
   const view = 'documents'
 
   res.render(view, { id })
-}
-
-export const renderChat = (_, res) => {
-  res.render('chat')
 }

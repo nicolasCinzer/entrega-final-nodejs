@@ -1,0 +1,30 @@
+<navbar class='header'>
+  <h1 class='header-logo'>
+    <a href='/home'>
+      JUST BUY IT.
+    </a>
+  </h1>
+  <div class='header-nav'>
+    <form action='/home' method='get' class='header-searcher'>
+      <input class='header-input-text main-font-bold' type='text' name='title' id='searchEngine' placeholder='Just search what you want to buy.' />
+      <button type='submit'>
+        <i class='fa-solid fa-magnifying-glass transition'></i>
+      </button>
+      
+    </form>
+  </div>
+  <div class='header-profile'>
+    <form action='/cart' method='get'>
+      <button class='header-profile-cart transition main-font'>
+        <span class='header-profile-cart-amount' id='amountProductsInCart'>{{products_in_cart}}</span>
+        <i class='fa-solid fa-cart-shopping'></i>
+      </button>
+    </form>
+    <div class='header-profile-banner transition'>
+      <span class='header-profile-logo'>
+        {{user_initials}}
+      </span>
+      {{user}}
+    </div>
+  </div>
+</navbar>

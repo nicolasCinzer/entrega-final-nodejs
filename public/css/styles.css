@@ -3,6 +3,10 @@
 @import './auth.css';
 @import './header.css';
 @import './home.css';
+@import './cart.css';
+@import './purchase.css';
+@import './ticket.css';
+@import './ui.css';
 @import './visual-components.css';
 @import '../toastify/toastify.css';
 

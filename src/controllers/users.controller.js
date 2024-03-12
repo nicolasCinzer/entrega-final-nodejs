@@ -25,3 +25,23 @@ export const saveDocuments = async (req, res, next) => {
     next(error)
   }
 }
+
+export const getAllUsers = async (req, res, next) => {
+  try {
+    const users = await usersService.retrieveAll()
+
+    success({ res, message: `${users.length} Users founded`, features: users })
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const deleteInactiveUsers = async (req, res, next) => {
+  try {
+    const deletedUsers = await usersService.deleteInactiveUser()
+
+    success({ res, message: `${deletedUsers.deletedCount} Users Deleted` })
+  } catch (error) {
+    next(error)
+  }
+}

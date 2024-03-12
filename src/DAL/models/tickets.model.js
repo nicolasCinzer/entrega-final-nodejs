@@ -17,7 +17,12 @@ const ticketsSchema = Schema({
   purchaser: {
     type: String,
     required: true
-  }
+  },
+  products: [
+    {
+      
+    }
+  ]
 })
 
 export const ticketsModel = model('Tickets', ticketsSchema)

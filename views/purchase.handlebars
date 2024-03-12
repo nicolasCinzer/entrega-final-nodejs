@@ -1,0 +1,61 @@
+{{> header}}
+
+<main class='purchase-container'>
+  <section class='purchase-pay-options-container'>
+    <h1 class='pay-options-title'>Choose the payment method</h1>
+    <ul class='pay-options-list'>
+      <li class='pay-option-component'>
+        <div class='pay-option-input'>
+          <input type='radio' name='paymentMethod' id='cash' />
+        </div>
+        <div class='pay-option-label'>
+          <div>Cash</div>
+        </div>
+      </li>
+      <li class='pay-option-component'>
+        <div class='pay-option-input'>
+          <input type='radio' name='paymentMethod' id='credit_card' />
+        </div>
+        <div class='pay-option-label'>
+          <div>Credit Card</div>
+        </div>
+      </li>
+    </ul>
+    <form action='/api/carts/{{cid}}/purchase' method="post">
+      <button class='purchase-btn btn transition main-font-bold'>BUY NOW</button>
+    </form>
+  </section>
+  <section class='purchase-summary'>
+    <div class='summary-component'>
+      <h2 class='summary-component-title'>
+        Purchase summary
+      </h2>
+      <div class='summary-component-info'>
+        <div class='summary-component-info-tag'>
+          Products ({{products_in_cart}})
+        </div>
+        <div class='summary-component-info-tag'>
+          $
+          {{totalPurchase}}
+        </div>
+      </div>
+      <div class='summary-component-info'>
+        <div class='summary-component-info-tag'>
+          Shipping
+        </div>
+        <div class='summary-component-info-tag'>
+          $ 0
+        </div>
+      </div>
+      <div class='summary-component-info main-font-bold'>
+        <div class='summary-component-info-tag'>
+          Total
+        </div>
+        <div class='summary-component-info-tag'>
+          $
+          {{totalPurchase}}
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

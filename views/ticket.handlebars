@@ -1,0 +1,31 @@
+{{> header}}
+
+<main class='ticket-container'>
+  <section class='ticket-component'>
+    <h2 class='ticket-title'>Purchase success!</h2>
+    <article class='ticket-info'>
+      <div class="ticket-header">
+        <div class="ticket-label">Ticket</div>
+        <div class='ticket-date'>{{purchase_datetime}}</div>
+      </div>
+      <div class='ticket-products'>
+        {{#each products}}
+          <div class='ticket-product'>
+            <div class="ticket-product-first">
+              <h3 class='ticket-product-name'>{{title}}</h3>
+              <div class='ticket-product-total'>${{total}}</div>
+            </div>
+            <div class='ticket-product-quantity'>{{quantity}} Units</div>
+          </div>
+        {{/each}}
+      </div>
+      <div class='ticket-total'>
+        <span>TOTAL</span>
+        <span>${{amount}}</span>
+      </div>
+    </article>
+  </section>
+  <form action='/home'>
+    <input type='submit' value='BACK TO HOME' class='ticket-home-btn transition main-font' />
+  </form>
+</main>
