@@ -6,13 +6,13 @@ class ViewsService {
   buildHeaderRender = async ({ full_name, user_initials, cart }) => {
     const userCart = await cartsService.getCartById(cart)
 
-    const haederAttributes = {
+    const headerRender = {
       user: full_name,
       user_initials,
       products_in_cart: userCart.products.length
     }
 
-    return { userCart, haederAttributes }
+    return { userCart, headerRender }
   }
 
   buildProductsRender = async ({ queryOpt, full_name, user_initials, cart }) => {
@@ -24,7 +24,7 @@ class ViewsService {
 
     const products = await productsService.getProducts({ limit, page, sort, query }, true)
 
-    const { haederAttributes } = this.buildHeaderRender({ full_name, user_initials, cart })
+    const { headerRender } = await this.buildHeaderRender({ full_name, user_initials, cart })
 
     const renderVariables = {
       products: products.docs
@@ -35,7 +35,7 @@ class ViewsService {
       totalPages: products.totalPages,
       hasPrevPage: products.hasPrevPage,
       hasNextPage: products.hasNextPage,
-      ...haederAttributes,
+      ...headerRender,
       cid: cart
     }
 
@@ -48,7 +48,7 @@ class ViewsService {
   }
 
   buildCartRender = async ({ full_name, user_initials, cart }) => {
-    const { userCart, haederAttributes } = this.buildHeaderRender({ full_name, user_initials, cart })
+    const { userCart, headerRender } = await this.buildHeaderRender({ full_name, user_initials, cart })
 
     const products = userCart.products
       .map(({ product, quantity }) => ({ ...product.toJSON(), quantity }))
@@ -66,14 +66,14 @@ class ViewsService {
 
     return {
       products,
-      ...haederAttributes,
+      ...headerRender,
       totalPurchase,
       cid: cart
     }
   }
 
   buildTicketRender = async ({ full_name, user_initials, cart, email }) => {
-    const { haederAttributes } = this.buildHeaderRender({ full_name, user_initials, cart })
+    const { headerRender } = await this.buildHeaderRender({ full_name, user_initials, cart })
 
     const tickets = await getTicket(email)
 
@@ -92,7 +92,7 @@ class ViewsService {
       .replace(',', '')
 
     return {
-      ...haederAttributes,
+      ...headerRender,
       ...ticket
     }
   }
